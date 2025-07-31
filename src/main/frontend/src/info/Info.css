@@ -134,19 +134,19 @@
     margin-top:10px;
 }
 
-.sub_tab_content li > span.popH1 {
+.hosDivision {
     background: url(./img/pop_ho01.png) no-repeat left center;
 }
 
-.sub_tab_content li > span.popH2 {
+.hosAddress {
     background: url(./img/pop_ho02.png) no-repeat left center;
 }
 
-.sub_tab_content li > span.popH3 {
+.hosPhoneNum {
     background: url(./img/pop_ho03.png) no-repeat left center;
 }
 
-.sub_tab_content li > span.popH4 {
+.hosUrl {
     background: url(./img/pop_ho04.png) no-repeat left center;
 }
 
@@ -792,7 +792,7 @@
     transition-delay: .1s;
 }
 
-.more-bt:hover .sfl, .more-bt. .sfl {
+.more-bt:hover .sfl, .more-bt .sfl {
     -webkit-transition: .5s;
     transition: .5s;
 }

@@ -3,8 +3,7 @@ import areaData from "./data/areaData";
 import './App.css'
 import {backRequest} from "./BackRequest";
 import {Collapse} from '@kunukn/react-collapse'
-import Map from "./Map";
-import ResultLi from "./ResultLi";
+import Map from "./map/Map";
 import {Link, Route, Routes} from "react-router-dom";
 import HospitalInfo from "./HospitalInfo";
 import LoginForm from "./login/LoginForm";
@@ -464,6 +463,30 @@ function App() {
                 <Route path='/insertReview/:careCode' element={<InsertReview />} />
             </Routes>
         </>
+    )
+}
+
+function ResultLi(props){
+
+    // 자식 데이터로 넣어준 hospitalData
+    const data = props.hospitalData;
+
+    return (
+        <li>
+            <span className='hospitalTitle' onClick={() => window.open(`/hospitalInfo/${data.careCode}`, '_blank', 'width=1100, height=900')}>{data.hospitalName}
+                <Link to={'http://map.naver.com/index.nhn?elng='+data.x_coordinate+'&elat='+data.y_coordinate+'&etext='+data.hospitalName+'&menu=route&pathType=1'} className='btn-map' target='_blank'>길찾기</Link>
+            </span>
+
+            <p className='hospitalSubInfo'>
+                <span>{data.hospitalType}</span>
+                <span className='bar'></span>
+                <span>{data.phoneNumber}</span>
+
+                <span>
+                    <i className='icon-home'>주소</i>{data.address}
+                </span>
+            </p>
+        </li>
     )
 }
 

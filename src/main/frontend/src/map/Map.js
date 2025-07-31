@@ -1,10 +1,10 @@
 import {Container as MapDiv, Marker, NaverMap, Overlay, useMap, useNavermaps} from 'react-naver-maps'
 import React, {useEffect, useState} from 'react'
 import {makeMarkerClustering}  from "./MarkerClustering";
-import myPin from "./img/mypin.png";
-import hospitalMarker from './img/marker_hospital.png'
-import drugMarker from './img/marker_drug.png'
-import hospitalMarkerOn from './img/marker_hospital_on.png'
+import myPin from "../img/mypin.png";
+import hospitalMarker from '../img/marker_hospital.png'
+import drugMarker from '../img/marker_drug.png'
+import hospitalMarkerOn from '../img/marker_hospital_on.png'
 
 function Map({markerData, userLocation}) {
     

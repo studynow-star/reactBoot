@@ -2,11 +2,11 @@ import {useEffect, useRef, useState} from "react";
 import './Info.css'
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
-import {API_BASS_URL} from "./api-config";
-import Loding from "./Loding";
-import images from "./data/pop_imagesData";
-import {evaluation} from "./data/evaluationData";
-import {deleteReview} from './Review';
+import {API_BASS_URL} from "../back/api-config";
+import Loding from "../loding/Loding";
+import images from "../data/pop_imagesData";
+import {evaluation} from "../data/evaluationData";
+import {deleteReview} from '../review/Review';
 
 function HospitalInfo() {
 
@@ -63,14 +63,16 @@ function HospitalInfo() {
     useEffect(() => {
         console.log(careCode)
 
-        // 먼저 백에서 해당 백에서 해당 병원 or 약국의 모든 정보를 가져온다
+        // 먼저 백에서 해당 병원 또는 약국의 모든 정보를 가져온다
         axios.get(API_BASS_URL + `/api/search/detailInfo/${careCode}`)
             .then((response) => {
+                // 데이터를 성공적으로 가져왔을 때 detailData 변수에 set함수로 가져온 데이터를 넣어준다.
                 setDetailData(response.data)
 
                 // 만약 가져온 정보가 약국이면 바로 보여줌
                 // 약국 평가정보 같은 경우에는 API가 없었기 때문에 보여줄 수 없었음
                 if (response.data.hospitalType === '약국') {
+                    // 만약 가져온 정보가 약국일 때 로딩을 풀어서 바로 정보 보여주기
                     setLoading(true)
                 } else { // 약국이 아닐 경우에는 API를 통해 다른 의사정보 + 평가정보를 가져온 다음 페이지를 보여줌
                     axios.get(specialTreatmentUrl + '?ServiceKey=' + serviceKey + '&ykiho=' + careCode + '&_type=json&numOfRows=100').then((response) => {
@@ -101,6 +103,8 @@ function HospitalInfo() {
                         // 의사정보 가져온 다음 평가정보 가져오는 구문
                         axios.get(HosEvaluationUrl + '?ServiceKey=' + serviceKey + '&ykiho=' + careCode)
                             .then((response) => {
+
+                                // 데이터를 API에서 뽑을 때 item객체까지 가야함.
                                 let resData = response.data.response.body.items.item;
                                 let arr = {};
 
@@ -133,6 +137,7 @@ function HospitalInfo() {
                     })
                 }
             }).catch((error) => console.log(error));
+    // carrCode가 바뀔 때 마다 함수가 실행됨. 페이지에서 병원 또는 약국이 달라질 수 있기 때문이다.
     }, [careCode]);
 
     return (
@@ -196,7 +201,7 @@ function HospitalInfo() {
 }
 
 // 기본정보 => 의사정보 + 의사 수
-// 나중에 className 바꿀 예정 (지금은 군대 사지방에서 하는중입니다...ㅠㅠㅠ)
+// 나중에 className 바꿀 예정 (지금은 사지방에서 하는중입니다...ㅠㅠㅠ) 2025.07.31에 바꿨습니다.ㅎㅎ
 // popH1 ~ H4까지 맞는 이름으로 바꾸겠음, 코드 작성할 때는 귀찮았나?
 function DefaultInfo({detailData, doctorData, doctorCount}) {
     return (
@@ -212,21 +217,21 @@ function DefaultInfo({detailData, doctorData, doctorCount}) {
             <div className="sub_tab_content">
                 <ul>
                     <li>
-                        <span className='popH1'>병원구분</span>
+                        <span className='hosDivision'>병원구분</span>
                         <p>{detailData.hospitalType}</p>
                     </li>
                     <li>
-                        <span className='popH2'>주소</span>
+                        <span className='hosAddress'>주소</span>
                         <p>{detailData.address}
                             <Link to={'http://map.naver.com/index.nhn?elng='+detailData.x_coordinate+'&elat='+detailData.y_coordinate+'&etext='+detailData.hospitalName+'&menu=route&pathType=1'} className='roadFind' target='_blank'>길찾기</Link>
                         </p>
                     </li>
                     <li>
-                        <span className='popH3'>전화번호</span>
+                        <span className='hosPhoneNum'>전화번호</span>
                         <p>{detailData.phoneNumber}</p>
                     </li>
                     <li>
-                        <span className='popH4'>홈페이지</span>
+                        <span className='hosUrl'>홈페이지</span>
                         <p>
                             {
                                 detailData.hospitalURL === '' ?
@@ -338,7 +343,7 @@ function Reviews({careCode}) {
     const username = localStorage.getItem('username');
 
     // 리뷰 데이터 + 페이징 데이터 모음
-        const [reviewData, setReviewData] = useState(null);
+    const [reviewData, setReviewData] = useState(null);
 
     // 로딩
     const [loading, setLoading] = useState(false)
@@ -423,11 +428,13 @@ function Reviews({careCode}) {
                             {
                                 reviewData.prev ? <li><span onClick={() => pageClick('prev')}>이전</span></li> : ''
                             }
+
                             {
                                 pageArr().map(a =>
                                     <li><span className={reviewData.page === a ? 'active' : ''} onClick={() => pageClick('', a)}>{a}</span></li>
                                 )
                             }
+                            
                             {
                                 reviewData.next ? <li><span onClick={() => pageClick('next')}>다음</span></li> : ''
                             }

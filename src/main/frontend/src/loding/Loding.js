@@ -1,7 +1,7 @@
 // Loading.js
 import React from 'react';
 import {Background} from './Styles';
-import Spinner from './img/spinner.gif';
+import Spinner from '../img/spinner.gif';
 
 export default () => {
     return (
