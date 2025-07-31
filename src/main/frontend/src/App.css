@@ -1,0 +1,383 @@
+* {
+  font-size: 16px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: -0.8px;
+  font-weight:400;
+  line-height:1.7;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,li,ol {
+  list-style: none;
+  margin:0;
+  padding:0;
+}
+
+.bar {
+  display: inline-block;
+  width:1px;
+  margin:0 5px;
+  height:10px;
+  background-color:#ddd;
+}
+
+#map {
+  width:100%;
+  height:910px;
+}
+
+/* 병원 & 약국 검색*/
+.searchWrap {
+  position: fixed;
+  left: 190px;
+  top: 10px;
+  z-index: 999;
+  transform: translate(-50%, 0);
+  white-space: nowrap;
+}
+
+.searchMain {
+  border: #b0b0b0 1px solid;
+  border-radius: 20px;
+  box-shadow: rgb(0 0 0 / 17%) 2px 2px 2px;
+  color: #000;
+  line-height: 38px;
+  padding: 0 34px;
+  background: url("img/map.png") 15px center no-repeat #fff;
+  background-size: 14px;
+  position: relative;
+  width: 330px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.searchMain::after {
+  position: absolute;
+  content: '';
+  display: block;
+  background: url('img/arr.png') no-repeat;
+  background-size: 12px;
+  width: 12px;
+  height: 7px;
+  right: 14px;
+  top: 17px;
+}
+
+.searchMain span {
+  display: inline-block;
+}
+
+#districtCode, #addressDetailCode {
+  padding-left: 20px;
+  background: url('img/arrRight.png') 6px center no-repeat;
+  background-size: 6px;
+}
+
+.searchDetailWrap {
+  border: #cacaca solid 1px;
+  margin: 5px 0 0;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 10px 5px 10px 0;
+}
+
+
+.searchDetailWrap div {
+  float: left;
+  padding: 0 5px 0 0;
+}
+
+.searchDetailWrap ul {
+  height:208px;
+  overflow-y: auto;
+}
+
+.searchDetailWrap ul::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 2.5px;
+}
+
+.searchDetailWrap ul::-webkit-scrollbar {
+  width: 5px;
+}
+
+.searchDetailWrap li {
+  padding:2px 8px;
+}
+
+.searchDetailWrap li:first-child > strong {
+  font-size:15px;
+  cursor: pointer;
+  font-weight:500;
+  display: block;
+}
+
+.searchDetailWrap li:first-child > strong:hover {
+  background-color: #f5f5f5;
+}
+
+.searchDetailWrap li span{
+  font-size:15px;
+  display: block;
+  padding:2px 0;
+  color:#333;
+}
+
+.searchDetailWrap li span:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.searchBtn {
+  clear: both;
+  border-top: #e4e4e4 solid 1px;
+  margin: 10px 10px 0;
+  padding-top: 10px;
+  text-align: center !important;
+}
+
+.searchBtn span {
+  width: 50px;
+  line-height: 30px;
+  color: #fff;
+  font-size: 14px;
+  background-color: #5392f8;
+  border-radius: 15px;
+  display: inline-block;
+  border:0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.searchBtn span + span {
+  background-color:#8d9196;
+  margin-left:2px;
+}
+
+/* 병원 & 약국 검색 결과 */
+.searchResultWrap {
+  padding-top: 64px;
+  position: absolute;
+  z-index: 998;
+  left: 0;
+  top: 0;
+  width: 370px;
+  height: 100%;
+  border-right: #cdcdcd solid 1px;
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 12%) 2px 2px 2px;
+  transition-duration: .6s;
+  overflow: hidden;
+}
+
+.hide {
+  left: -370px;
+}
+
+
+
+/* 검색 닫기 */
+.searchClose {
+  position: absolute;
+  left: 364px;
+  z-index: 9;
+  top: 50%;
+  transform: translate(0, -50%);
+  background: url('img/map_close.png') no-repeat;
+  width: 35px;
+  height: 62px;
+  text-indent: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  transition-duration: .8s;
+  cursor: pointer;
+}
+
+.searchOpen {
+  position: absolute;
+  left: -3px;
+  z-index: 9;
+  top: 50%;
+  transform: translate(0, -50%);
+  background: url('img/map_open.png') no-repeat;
+  width: 35px;
+  height: 62px;
+  text-indent: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  transition-duration: .6s;
+  cursor: pointer;
+}
+
+/* 유저의 직접 검색 input */
+.searchText {
+  border-top: #d4d4d6 solid 1px;
+  background-color: #e4f1fb;
+  border-bottom: #d9e5ef solid 1px;
+  padding: 15px 65px 14px 20px;
+  position: relative;
+}
+
+/* 검색 창 */
+.searchText input {
+  border-radius: 20px;
+  line-height: 38px;
+  padding: 0 15px;
+  width: 100%;
+  border: 1px solid #d4d4d6;
+}
+
+/* 검색 돋보기 버튼 */
+.searchText button {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  background: #4c4c4d;
+  border-radius: 100%;
+  width: 39px;
+  height: 40px;
+  line-height: 35px;
+  text-align: center;
+  vertical-align: middle;
+  border: 0;
+  outline: 0;
+}
+
+.searchResultCenter {
+  padding: 20px;
+  border-bottom: #d4d4d6 solid 1px;
+  color:#000;
+}
+
+.searchResultCenter > span {
+  color:red;
+}
+
+.searchResultCenter > p {
+  color: #666666;
+  font-size: 14px;
+  margin:0;
+}
+
+/* 검색 결과 */
+.searchResultSuccess {
+  padding: 10px 5px 10px 0;
+}
+
+.searchResultSuccess > ul {
+  overflow-y: auto;
+  height: calc(100vh - 295px);
+}
+
+.searchResultSuccess > ul::-webkit-scrollbar {
+  width:5px;
+}
+
+.searchResultSuccess > ul::-webkit-scrollbar-thumb {
+  background-color: #9f9f9f;
+  border-radius: 2.5px;
+}
+
+.searchResultSuccess > ul::-webkit-scrollbar-track {
+  background-color: #e3e3e3;
+  border-radius: 2.5px;
+}
+
+.searchResultSuccess li {
+  float: none;
+  width: 100%;
+  border: none;
+  height: auto;
+  padding: 18px 20px 20px;
+  position:relative;
+}
+
+.searchResultSuccess li + li {
+  border-top:1px solid #e9e9e9;
+}
+
+.hospitalTitle {
+  font-size: 18px;
+  color: #000000;
+  font-weight: 700;
+  display: block;
+  padding: 0 85px 5px 0;
+  line-height: 1.27;
+  cursor: pointer;
+}
+
+/* 길찾기 */
+.btn-map {
+  top: 18px;
+  right: 20px;
+  background: url(img/road.png) 8px center no-repeat #fff;
+  background-size: 15px;
+  border: #b7b7b7 solid 1px;
+  border-radius: 8px;
+  line-height: 24px;
+  padding: 0 6px 0 25px;
+  position: absolute;
+  color:#333;
+}
+
+.hospitalSubInfo {
+  margin-top:0;
+}
+
+.hospitalSubInfo span {
+  color:#666;
+  font-size:13px;
+}
+
+.hospitalSubInfo span:last-child {
+  display: block;
+}
+
+.icon-home {
+  width: 14px;
+  height: 13px;
+  background-size: 10px;
+  background-image: url('img/home.png');
+  background-position: 0 0;
+  text-indent: -999999999999999px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+/* 단어로 검색했을 때 검색된 데이터가 없을 때 */
+.noData {
+  background: url(img/noData.png) center 15px no-repeat transparent;
+  padding: 75px 0 10px 0 !important;
+  text-align: center;
+  cursor: default;
+}
+
+/* map 가장 밑 foot*/
+.mapFoot {
+  background-color: #f8f8f8;
+  border-top: #d4d4d6 solid 1px;
+  height: 50px;
+  padding: 8px 20px;
+  position: relative;
+}
+
+.mapFoot a,.logout {
+  color:#000 !important;
+  margin-right:15px;
+  padding:5px 10px;
+  border-radius: 10px;
+  font-size:17px;
+}
+
+.mapFoot a:hover, .logout:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

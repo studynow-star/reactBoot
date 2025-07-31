@@ -1,0 +1,57 @@
+.review-form {
+    padding: 40px;
+    text-align: center;
+}
+
+.review-form > h2 {
+    font-size:28px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.review-form > h2 > span {
+    font-size:28px;
+    font-weight:bold;
+    color: #000000;
+}
+
+.review-form textarea {
+    background-color: #fff;
+    border-color: #b8bdc9;
+    color: #000;
+    font-size: 16px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    display: block;
+    min-width: 600px;
+    margin:0 auto;
+    padding:10px;
+    height:250px;
+}
+
+.review-form button {
+    background-color: #18bd5b;
+    border-color: #18bd5b;
+    color: #fff;
+    min-width: 180px;
+    outline: 0;
+    margin-top: 20px;
+    border-radius: 4px ;
+    padding:12px;
+    cursor: pointer;
+}
+
+.review-form button:hover {
+    background-color: #16aa52;
+}
+
+/* 뒤로가기 */
+.windowBack {
+    position:absolute;
+    left:3%;
+    top:1%;
+    color:#333;
+    font-weight:500;
+    cursor: pointer;
+}
